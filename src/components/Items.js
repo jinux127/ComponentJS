@@ -22,17 +22,17 @@ export default class Items extends Component {
   }
 
   setEvent() {
-    this.$target.querySelector('.addButton').addEventListener('click', () => {
-      const { items } = this.$state;
-      this.setState({ items: [...items, `item${items.length + 1}`] });
-    });
+    this.$target.addEventListener('click', ({ target }) => {
+      const items = [...this.$state.items];
 
-    this.$target.querySelectorAll('.deleteButton').forEach((deleteBtn) => {
-      deleteBtn.addEventListener('click', ({ target }) => {
-        const items = [...this.$state.items];
+      if (target.classList.contains('addButton')) {
+        this.setState({ items: [...items, `items${items.length + 1}`] });
+      }
+
+      if (target.classList.contains('deleteButton')) {
         items.splice(target.dataset.index, 1);
         this.setState({ items });
-      });
+      }
     });
   }
 }
